@@ -1,0 +1,41 @@
+import heapq
+
+def tsp_a_star(graph, start_node):
+    num_cities = len(graph)
+    
+    # Priority Queue stores: (priority, current_cost, last_city, visited_cities_tuple)
+    # We use a tuple for visited cities because it is "hashable" (can be stored in sets)
+    pq = [(0, 0, start_node, (start_node,))]
+    
+    while pq:
+        f, g, u, visited = heapq.heappop(pq)
+
+        # GOAL: If all cities have been visited, return to the start city
+        if len(visited) == num_cities:
+            total_path_cost = g + graph[u][start_node]
+            return f"Shortest Route Cost: {total_path_cost} (Path: {visited} -> {start_node})"
+
+        # Explore neighbors (all unvisited cities)
+        for v in range(num_cities):
+            if v not in visited:
+                new_g = g + graph[u][v]
+                
+                # Heuristic (h): Distance to the nearest city from the current one
+                # This helps A* prioritize "closer" neighbors first
+                h = min(graph[v][i] for i in range(num_cities) if i not in visited)
+                
+                new_visited = visited + (v,)
+                heapq.heappush(pq, (new_g + h, new_g, v, new_visited))
+
+    return "No solution found"
+
+# Example: Distance Matrix for 4 cities (0, 1, 2, 3)
+# matrix[0][1] = 10 means distance from City 0 to City 1 is 10
+distances = [
+    [0, 10, 15, 20],
+    [10, 0, 35, 25],
+    [15, 35, 0, 30],
+    [20, 25, 30, 0]
+]
+
+print(tsp_a_star(distances, 0))

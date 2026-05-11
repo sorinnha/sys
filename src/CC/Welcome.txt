@@ -1,0 +1,31 @@
+public class WelcomeMessage {
+    
+    public static void displayMessage() {
+        
+        System.debug('Welcome to Apex Programming Language of Salesforce Platform');
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+WelcomeMessage.displayMessage();
+
+https://www.salesforce.com/products/free-trial/developer/

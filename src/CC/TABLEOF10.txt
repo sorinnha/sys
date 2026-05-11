@@ -1,0 +1,27 @@
+public class TableOfTen {
+    
+    public static void displayTable() {
+        
+        for(Integer i = 1; i <= 10; i++) {
+            
+            Integer result = 10 * i;
+            
+            System.debug('10 x ' + i + ' = ' + result);
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+TableOfTen.displayTable();
+
+
+https://www.salesforce.com/products/free-trial/developer/

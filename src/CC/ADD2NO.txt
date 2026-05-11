@@ -1,0 +1,29 @@
+public class AdditionExample {
+    
+    // Method for addition
+    public static Integer addNumbers(Integer num1, Integer num2) {
+        
+        Integer result = num1 + num2;
+        return result;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Integer sum = AdditionExample.addNumbers(10, 20);
+
+System.debug('Sum is: ' + sum);
+
+https://www.salesforce.com/products/free-trial/developer/

@@ -1,0 +1,47 @@
+import heapq
+
+def prim_mst(graph, start_node):
+    # visited keeps track of nodes already in our MST
+    visited = set()
+    # edges_pq: (weight, to_node, from_node)
+    edges_pq = [(0, start_node, None)]
+    mst = []
+    total_cost = 0
+
+    while edges_pq:
+        # 1. Take the cheapest available edge (The Greedy Step)
+        weight, current_node, prev_node = heapq.heappop(edges_pq)
+
+        # 2. If we've already visited this node, skip it
+        if current_node in visited:
+            continue
+
+        # 3. Add node to visited and record the edge
+        visited.add(current_node)
+        total_cost += weight
+        if prev_node is not None:
+            mst.append((prev_node, current_node, weight))
+
+        # 4. Look at all neighbors of the new node
+        for neighbor, edge_weight in graph[current_node].items():
+            if neighbor not in visited:
+                # Add unvisited neighbors to our "available edges" list
+                heapq.heappush(edges_pq, (edge_weight, neighbor, current_node))
+
+    return mst, total_cost
+
+# Example Graph (Adjacency List)
+# 'A': {'B': 2} means an edge between A and B weighs 2
+graph = {
+    'A': {'B': 2, 'C': 3},
+    'B': {'A': 2, 'C': 1, 'D': 1, 'E': 4},
+    'C': {'A': 3, 'B': 1, 'F': 5},
+    'D': {'B': 1, 'E': 1},
+    'E': {'B': 4, 'D': 1, 'F': 1},
+    'F': {'C': 5, 'E': 1}
+}
+
+mst_edges, cost = prim_mst(graph, 'A')
+
+print(f"Edges in MST: {mst_edges}")
+print(f"Total Minimum Cost: {cost}")

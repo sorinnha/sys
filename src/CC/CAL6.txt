@@ -1,0 +1,41 @@
+public class CalculatorExample {
+    
+    public static Integer addNumbers(Integer num1, Integer num2) {
+        return num1 + num2;
+    }
+    
+    public static Integer subtractNumbers(Integer num1, Integer num2) {
+        return num1 - num2;
+    }
+    
+    public static Integer multiplyNumbers(Integer num1, Integer num2) {
+        return num1 * num2;
+    }
+    
+    public static Decimal divideNumbers(Integer num1, Integer num2) {
+        return (Decimal)num1 / num2;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+Integer addResult = CalculatorExample.addNumbers(20, 10);
+Integer subResult = CalculatorExample.subtractNumbers(20, 10);
+Integer mulResult = CalculatorExample.multiplyNumbers(20, 10);
+Decimal divResult = CalculatorExample.divideNumbers(20, 10);
+
+System.debug('Addition: ' + addResult);
+System.debug('Subtraction: ' + subResult);
+System.debug('Multiplication: ' + mulResult);
+System.debug('Division: ' + divResult);
+
+https://www.salesforce.com/products/free-trial/developer/

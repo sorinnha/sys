@@ -1,0 +1,43 @@
+def solve_n_queens(n):
+    # board representation
+    board = [['.' for _ in range(n)] for _ in range(n)]
+    
+    # Lookup arrays to track constraints:
+    # 1. Which rows have a queen
+    # 2. Which 'slash' diagonals (/) have a queen (row + col is constant)
+    # 3. Which 'back-slash' diagonals (\) have a queen (row - col is constant)
+    rows_occupied = [False] * n
+    slash_diag = [False] * (2 * n - 1)
+    backslash_diag = [False] * (2 * n - 1)
+
+    def backtrack(col):
+        # Base Case: All queens are placed
+        if col == n:
+            return True
+        
+        for row in range(n):
+            # Check if this square is under attack
+            if not (rows_occupied[row] or slash_diag[row + col] or backslash_diag[row - col]):
+                
+                # Place Queen
+                board[row][col] = 'Q'
+                rows_occupied[row] = slash_diag[row + col] = backslash_diag[row - col] = True
+                
+                # Move to next column
+                if backtrack(col + 1):
+                    return True
+                
+                # Backtrack: Remove Queen and reset constraints
+                board[row][col] = '.'
+                rows_occupied[row] = slash_diag[row + col] = backslash_diag[row - col] = False
+        
+        return False
+
+    if backtrack(0):
+        for r in board:
+            print(" ".join(r))
+    else:
+        print("No solution exists")
+
+# Try it with a 4x4 or 8x8 board
+solve_n_queens(4)

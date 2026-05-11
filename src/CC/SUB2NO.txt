@@ -1,0 +1,26 @@
+public class Subtract {
+	public static Integer subNumbers(Integer num1, Integer num2) {
+        
+        Integer result = num1 - num2;
+        return result;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+Integer sub = Subtract.subNumbers(20, 10);
+
+System.debug('Subtraction is: ' + sub);
+
+
+https://www.salesforce.com/products/free-trial/developer/

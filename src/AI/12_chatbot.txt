@@ -1,0 +1,55 @@
+import re
+
+def clean_text(text):
+    # Remove special characters and lowercase the text
+    return re.sub(r'[^\w\s]', '', text).lower()
+
+def chatbot():
+    # Knowledge Base: Keywords associated with specific responses
+    knowledge_base = {
+        "greeting": {
+            "keywords": ["hello", "hi", "hey", "greetings"],
+            "response": "Hello! Welcome to our Support Center. How can I assist you today?"
+        },
+        "products": {
+            "keywords": ["product", "item", "buy", "sell", "stock"],
+            "response": "We currently offer the latest smartphones, laptops, and accessories."
+        },
+        "shipping": {
+            "keywords": ["shipping", "delivery", "track", "package"],
+            "response": "Standard shipping takes 3-5 business days. You can track your order in the 'My Account' section."
+        },
+        "hours": {
+            "keywords": ["hours", "open", "time", "closing"],
+            "response": "Our store is open from 9:00 AM to 8:00 PM, Monday through Saturday."
+        },
+        "refund": {
+            "keywords": ["refund", "return", "back", "exchange"],
+            "response": "Our policy allows for returns within 30 days. Please keep your receipt!"
+        }
+    }
+
+    print("Chatbot: Connection established. (Type 'exit' to quit)")
+    
+    while True:
+        user_input = input("You: ")
+        if user_input.lower() == "exit":
+            print("Chatbot: Thank you for visiting. Have a great day!")
+            break
+            
+        processed_input = clean_text(user_input)
+        found_response = False
+
+        # Search for keywords in the processed input
+        for intent in knowledge_base.values():
+            if any(word in processed_input.split() for word in intent["keywords"]):
+                print(f"Chatbot: {intent['response']}")
+                found_response = True
+                break
+        
+        if not found_response:
+            print("Chatbot: I'm sorry, I don't have information on that. Would you like to speak to a human agent?")
+
+# Execute the chatbot
+if __name__ == "__main__":
+    chatbot()

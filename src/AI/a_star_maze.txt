@@ -1,0 +1,51 @@
+import heapq
+
+def a_star_maze(maze, start, goal):
+    rows, cols = len(maze), len(maze[0])
+    
+    # pq: (priority, current_steps, position)
+    pq = [(0, 0, start)]
+    
+    # visited: stores the shortest distance to reach each square
+    visited = {start: 0}
+
+    while pq:
+        f, g, (r, c) = heapq.heappop(pq)
+
+        # Check if we reached the exit
+        if (r, c) == goal:
+            return f"Path found! Total steps: {g}"
+
+        # Explore neighbors: Up, Down, Left, Right
+        for dr, dc in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+            nr, nc = r + dr, c + dc
+            
+            # Check if move is inside the maze and not a wall
+            if 0 <= nr < rows and 0 <= nc < cols and maze[nr][nc] == 0:
+                new_g = g + 1
+                
+                # If we found a faster way to this square, or it's new
+                if (nr, nc) not in visited or new_g < visited[(nr, nc)]:
+                    visited[(nr, nc)] = new_g
+                    
+                    # h: Manhattan distance (steps to goal ignoring walls)
+                    h = abs(nr - goal[0]) + abs(nc - goal[1])
+                    
+                    # f = g + h
+                    heapq.heappush(pq, (new_g + h, new_g, (nr, nc)))
+
+    return "No path exists!"
+
+# The Maze (0 = Path, 1 = Wall)
+maze = [
+    [0, 0, 0, 0, 0],
+    [1, 1, 1, 1, 0],
+    [0, 0, 0, 0, 0],
+    [0, 1, 1, 1, 1],
+    [0, 0, 0, 0, 0]
+]
+
+start_pos = (0, 0)
+goal_pos = (4, 4)
+
+print(a_star_maze(maze, start_pos, goal_pos))

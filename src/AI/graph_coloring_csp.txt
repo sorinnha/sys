@@ -1,0 +1,48 @@
+def is_safe(node, color, graph, colors_assigned):
+    # Constraint: Check if any adjacent neighbor already has this color
+    for neighbor in graph[node]:
+        if neighbor in colors_assigned and colors_assigned[neighbor] == color:
+            return False
+    return True
+
+def graph_coloring_csp(graph, num_colors, nodes, index, colors_assigned):
+    # Base Case: All nodes have been assigned a color
+    if index == len(nodes):
+        return True
+
+    current_node = nodes[index]
+
+    # Try assigning each color from the domain (1 to num_colors)
+    for color in range(1, num_colors + 1):
+        # Branch & Bound: Only proceed if the choice is valid (Safe)
+        if is_safe(current_node, color, graph, colors_assigned):
+            colors_assigned[current_node] = color
+
+            # Recursively try to color the next node
+            if graph_coloring_csp(graph, num_colors, nodes, index + 1, colors_assigned):
+                return True
+
+            # Backtrack: Remove color if it doesn't lead to a solution
+            del colors_assigned[current_node]
+
+    return False
+
+# --- Setup ---
+# Undirected Graph represented as an Adjacency List
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'C', 'D'],
+    'C': ['A', 'B', 'D'],
+    'D': ['B', 'C']
+}
+
+nodes = list(graph.keys())
+num_colors = 3  # Try to color with 3 colors (Red, Green, Blue)
+colors_assigned = {}
+
+if graph_coloring_csp(graph, num_colors, nodes, 0, colors_assigned):
+    print("Solution found:")
+    for node, color in colors_assigned.items():
+        print(f"Node {node}: Color {color}")
+else:
+    print("No solution exists with this many colors.")

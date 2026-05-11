@@ -1,0 +1,61 @@
+import heapq
+
+def check_winner(board):
+    lines = [(0,1,2), (3,4,5), (6,7,8), (0,3,6), (1,4,7), (2,5,8), (0,4,8), (2,4,6)]
+    for a, b, c in lines:
+        if board[a] == board[b] == board[c] != ' ':
+            return board[a]
+    if ' ' not in board:
+        return 'Tie'
+    return None
+
+def heuristic(board, player):
+    # h(n): Basic score based on potential to win
+    opponent = 'O' if player == 'X' else 'X'
+    lines = [(0,1,2), (3,4,5), (6,7,8), (0,3,6), (1,4,7), (2,5,8), (0,4,8), (2,4,6)]
+    
+    score = 0
+    for a, b, c in lines:
+        line = [board[a], board[b], board[c]]
+        if opponent not in line: # AI can still win here
+            score += 1
+        if player not in line: # Opponent can still win here
+            score -= 1
+    return -score # Negative because we want to minimize f(n) in the priority queue
+
+def a_star_tictactoe(start_board, player):
+    # Priority Queue: (f_score, turns, current_board)
+    # Using negative score because heapq is a min-priority queue
+    pq = [(0, 0, start_board)]
+    visited = {start_board}
+
+    while pq:
+        f, g, board = heapq.heappop(pq)
+
+        winner = check_winner(board)
+        if winner:
+            return board, g, winner
+
+        # Try all empty spots
+        for i in range(9):
+            if board[i] == ' ':
+                new_board = list(board)
+                new_board[i] = player
+                new_board_tuple = tuple(new_board)
+
+                if new_board_tuple not in visited:
+                    visited.add(new_board_tuple)
+                    h = heuristic(new_board_tuple, player)
+                    # Next player's turn
+                    next_player = 'O' if player == 'X' else 'X'
+                    heapq.heappush(pq, (g + 1 + h, g + 1, new_board_tuple))
+
+# ' ' represents an empty spot
+initial_board = ('X', 'O', 'X', 
+                 ' ', 'O', ' ', 
+                 ' ', ' ', ' ')
+
+best_board, moves, result = a_star_tictactoe(initial_board, 'X')
+
+print(f"Result: {result} in {moves} additional moves")
+print(f"Final Board: {best_board[:3]}\n             {best_board[3:6]}\n             {best_board[6:]}")

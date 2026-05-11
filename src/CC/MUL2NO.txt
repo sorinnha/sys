@@ -1,0 +1,25 @@
+public class Multiply {
+	public static Integer mulNumbers(Integer num1, Integer num2) {
+        
+        Integer result = num1 * num2;
+        return result;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+Integer mul = Multiply.mulNumbers(20, 10);
+
+System.debug('Multiplication is: ' + mul);
+
+
+https://www.salesforce.com/products/free-trial/developer/

@@ -1,0 +1,30 @@
+public class Division {
+	public static Integer divNumbers(Integer num1, Integer num2) {
+        
+        Integer result = num1 / num2;
+        return result;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Integer div = Division.divNumbers(20, 10);
+
+System.debug('Division is: ' + div);
+
+
+https://www.salesforce.com/products/free-trial/developer/

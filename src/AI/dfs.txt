@@ -1,0 +1,23 @@
+def dfs(graph, node, visited):
+    # 1. If we haven't seen this node, mark it
+    if node not in visited:
+        print(node)
+        visited.add(node)
+        
+        # 2. Visit every neighbor one by one
+        for neighbor in graph[node]:
+            # 3. Recursively 'dive' into the neighbor
+            dfs(graph, neighbor, visited)
+
+# The Graph (Undirected)
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D'],
+    'C': ['A', 'E'],
+    'D': ['B'],
+    'E': ['C']
+}
+
+# Run it
+visited = set()
+dfs(graph, 'A', visited)

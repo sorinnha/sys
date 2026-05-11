@@ -1,0 +1,35 @@
+def chatbot_response(user_input):
+    # Normalize the input
+    user_input = user_input.lower()
+
+    # Rule-based dictionary: Keywords mapped to responses
+    rules = {
+        "hello": "Hello! Welcome to our store. How can I help you today?",
+        "hi": "Hi there! Looking for anything specific?",
+        "product": "We sell high-quality electronics, including laptops and phones.",
+        "iphone": "We have the latest iPhone models in stock. Prices start at $799.",
+        "service": "We offer 24/7 technical support and a 2-year warranty on all items.",
+        "shipping": "Standard shipping takes 3-5 business days. Express takes 1-2 days.",
+        "return": "You can return any item within 30 days of purchase with a receipt.",
+        "hours": "We are open Monday to Friday, 9:00 AM to 6:00 PM.",
+        "thank": "You're welcome! Let me know if you need anything else."
+    }
+
+    # Search for keywords in the user's sentence
+    for keyword in rules:
+        if keyword in user_input:
+            return rules[keyword]
+
+    # Default fallback response
+    return "I'm sorry, I don't understand that. You can ask about our products, shipping, or return policy."
+
+# Simple interaction loop
+print("Chatbot: Hello! Type 'exit' to end the chat.")
+while True:
+    user_text = input("You: ")
+    if user_text.lower() == 'exit':
+        print("Chatbot: Goodbye!")
+        break
+    
+    response = chatbot_response(user_text)
+    print(f"Chatbot: {response}")

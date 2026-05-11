@@ -1,0 +1,25 @@
+public class TableOfFive {
+    
+    public static void displayTable() {
+        
+        for(Integer i = 1; i <= 10; i++) {
+            
+            Integer result = 5 * i;
+            
+            System.debug('5 x ' + i + ' = ' + result);
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+TableOfFive.displayTable();
+
+
+https://www.salesforce.com/products/free-trial/developer/

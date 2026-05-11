@@ -1,0 +1,33 @@
+from collections import deque
+
+def bfs_recursive(graph, queue, visited):
+    # Base Case: If the waiting line is empty, we are done!
+    if not queue:
+        return
+
+    # Take the person at the front of the line
+    node = queue.popleft()
+    print(node)
+
+    # Check all neighbors of this node
+    for neighbor in graph[node]:
+        if neighbor not in visited:
+            visited.add(neighbor) # Mark as visited
+            queue.append(neighbor) # Add to the end of the line
+    
+    # Move to the next node in the queue
+    bfs_recursive(graph, queue, visited)
+
+# Example Undirected Graph (Dictionary)
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D'],
+    'C': ['A', 'E'],
+    'D': ['B'],
+    'E': ['C']
+}
+
+# Setup and Start
+visited = {'A'}
+queue = deque(['A'])
+bfs_recursive(graph, queue, visited)
